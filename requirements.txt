@@ -7,4 +7,4 @@ mujoco-py
 pygame
 pandas
 cython<3
-pygame
+matplotlib

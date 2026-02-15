@@ -1,3 +1,12 @@
+"""Training and evaluation configuration. Single source for envs, algos, and paths."""
+import os
+
+# Paths (relative to project root; work in Git Bash and Windows)
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+LOGS_DIR = os.path.join(PROJECT_ROOT, "logs")
+IMGS_DIR = os.path.join(PROJECT_ROOT, "imgs")
+CKPT_DIR = os.path.join(PROJECT_ROOT, "ckpt")
+
 # Ray cluster
 num_rollout_workers = 16
 num_envs_per_worker = 4
@@ -13,15 +22,9 @@ _enable_new_api_stack = False
 max_exp = 1
 framework = "torch"
 envs = {
-    "Hopper-v3": {
-        "rollout_fragment_length": 512,
-    },
-    "Humanoid-v3": {
-        "rollout_fragment_length": 512,
-    },
-    "Walker2d-v3": {
-        "rollout_fragment_length": 512,
-    },
+    "Hopper-v3": {"rollout_fragment_length": 512},
+    "Humanoid-v3": {"rollout_fragment_length": 512},
+    "Walker2d-v3": {"rollout_fragment_length": 512},
 }
 algos = [
     # "pg",
@@ -35,6 +38,16 @@ stop_max_round = 50
 # Evaluate
 evaluation_interval = 1
 
-# Pricing units
-server_learner_per_s = (3.0600 + 17.92 / 30 / 24) / 60 / 60 # vm + ip + disk
-server_actor_per_s = (0.68 + 17.92 / 30 / 24) / 60 / 60 # vm + ip + disk
+# Pricing units (vm + ip + disk)
+server_learner_per_s = (3.0600 + 17.92 / 30 / 24) / 60 / 60
+server_actor_per_s = (0.68 + 17.92 / 30 / 24) / 60 / 60
+
+
+def get_env_names():
+    """Return list of env names in consistent order (for experiments and plotting)."""
+    return list(envs.keys())
+
+
+def get_algo_names():
+    """Return list of algo names (for experiments and plotting)."""
+    return list(algos)
