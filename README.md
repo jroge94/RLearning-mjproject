@@ -1,4 +1,4 @@
-# CSC4444-Project
+# Reinforcement Learning Project
 
 ## Git Bash (Windows)
 
